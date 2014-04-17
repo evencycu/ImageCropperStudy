@@ -1,0 +1,27 @@
+<ul>
+<% @events.each do |event| %>
+  <li>
+    <%= link_to event.name, event_path(event) %>
+    <%= link_to 'edit', edit_event_path(event) %>
+    <%= button_to 'delete', event_path(event), :method => :delete %>
+    <%= link_to 'ajax show', event_path(event), :remote => true, "data-type" => "script" %>
+    <%= link_to 'Jason show', event_path(event), :remote => true, "data-type" => :json, :id => "update_foobar" %>
+  </li>
+<% end %>
+</ul>
+<%= link_to 'new event', new_event_path %>
+
+<%= link_to "say hello", { :controller => "welcome", :action => "say" }, :id => "ajax-load"  %>
+<div id="content">
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+
+        $('#ajax-load').click( function(){
+            $('#content').load( $(this).attr("href") );
+            return false;
+        });
+
+    });
+</script>
